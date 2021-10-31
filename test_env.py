@@ -36,6 +36,10 @@ action('EnableIcon("Open_Door", exit, Tavern.Door, "Go to City", true)')
 action('EnableIcon("Open_Door", exit, City.BlueHouseDoor, "Go to Alchemy Shop", true)')
 action('CreatePlace(AlchemyShop, AlchemyShop)')
 action('EnableIcon("Open_Door", exit, AlchemyShop.Door, "Go to City", true)')
+# Create Bridge
+action('EnableIcon("Open_Door", exit, City.WestEnd, "Go to Bridge", true)')
+action('CreatePlace(Bridge, Bridge)')
+action('EnableIcon("Open_Door", exit, Bridge.EastEnd, "Go to City", true)')
 
 # Respond to input.
 while(True):
@@ -71,6 +75,12 @@ while(True):
 	elif(i == 'input Open_Door AlchemyShop.Door'): # exit AlchemyShop
 		action('Exit(Bob, AlchemyShop.Door, true)')
 		action('Enter(Bob, City.BlueHouseDoor, true)')
+	elif(i == 'input Open_Door City.WestEnd'): # enter Bridge
+		action('Exit(Bob, City.WestEnd, true)')
+		action('Enter(Bob, Bridge.EastEnd, true)')
+	elif(i == 'input Open_Door Bridge.EastEnd'): # exit Bridge
+		action('Exit(Bob, Bridge.EastEnd, true)')
+		action('Enter(Bob, City.WestEnd, true)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
