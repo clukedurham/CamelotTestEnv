@@ -37,9 +37,9 @@ action('EnableIcon("Open_Door", exit, City.BlueHouseDoor, "Go to Alchemy Shop", 
 action('CreatePlace(AlchemyShop, AlchemyShop)')
 action('EnableIcon("Open_Door", exit, AlchemyShop.Door, "Go to City", true)')
 # Create Bridge
-action('EnableIcon("Open_Door", exit, City.WestEnd, "Go to Bridge", true)')
 action('CreatePlace(Bridge, Bridge)')
-action('EnableIcon("Open_Door", exit, Bridge.EastEnd, "Go to City", true)')
+#Create Camp
+action('CreatePlace(Camp, Camp)')
 
 # Respond to input.
 while(True):
@@ -75,12 +75,18 @@ while(True):
 	elif(i == 'input Open_Door AlchemyShop.Door'): # exit AlchemyShop
 		action('Exit(Bob, AlchemyShop.Door, true)')
 		action('Enter(Bob, City.BlueHouseDoor, true)')
-	elif(i == 'input Open_Door City.WestEnd'): # enter Bridge
-		action('Exit(Bob, City.WestEnd, true)')
-		action('Enter(Bob, Bridge.EastEnd, true)')
-	elif(i == 'input Open_Door Bridge.EastEnd'): # exit Bridge
-		action('Exit(Bob, Bridge.EastEnd, true)')
-		action('Enter(Bob, City.WestEnd, true)')
+	elif(i == 'input arrived Bob position City.EastEnd'): # enter Bridge
+		action('Exit(Bob, City.EastEnd, true)')
+		action('Enter(Bob, Bridge.WestEnd, true)')
+	elif(i == 'input arrived Bob position Bridge.WestEnd'): # exit Bridge
+		action('Exit(Bob, Bridge.WestEnd, true)')
+		action('Enter(Bob, City.EastEnd, true)')
+	elif(i == 'input arrived Bob position Bridge.SouthEnd'): # enter Camp
+		action('Exit(Bob, Bridge.SouthEnd, true)')
+		action('Enter(Bob, Camp.Exit, true)')
+	elif(i == 'input arrived Bob position Camp.Exit'): # exit Camp
+		action('Exit(Bob, Camp.Exit, true)')
+		action('Enter(Bob, Bridge.SouthEnd, true)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
