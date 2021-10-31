@@ -38,8 +38,10 @@ action('CreatePlace(AlchemyShop, AlchemyShop)')
 action('EnableIcon("Open_Door", exit, AlchemyShop.Door, "Go to City", true)')
 # Create Bridge
 action('CreatePlace(Bridge, Bridge)')
-#Create Camp
+# Create Camp
 action('CreatePlace(Camp, Camp)')
+# Create Ruins
+action('CreatePlace(Ruins, Ruins)')
 
 # Respond to input.
 while(True):
@@ -92,6 +94,12 @@ while(True):
 	elif(i == 'input arrived Bob position Camp.Exit'): # exit Camp
 		action('Exit(Bob, Camp.Exit, true)')
 		action('Enter(Bob, Bridge.SouthEnd, true)')
+	elif(i == 'input arrived Bob position Bridge.NorthEnd'): # enter Camp
+		action('Exit(Bob, Bridge.NorthEnd, true)')
+		action('Enter(Bob, Ruins.Exit, true)')
+	elif(i == 'input arrived Bob position Ruins.Exit'): # exit Camp
+		action('Exit(Bob, Ruins.Exit, true)')
+		action('Enter(Bob, Bridge.NorthEnd, true)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
