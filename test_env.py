@@ -42,6 +42,8 @@ action('CreatePlace(Bridge, Bridge)')
 action('CreatePlace(Camp, Camp)')
 # Create Ruins
 action('CreatePlace(Ruins, Ruins)')
+# Create Forest Path
+action('CreatePlace(ForestPath, ForestPath)')
 
 # Respond to input.
 while(True):
@@ -94,12 +96,18 @@ while(True):
 	elif(i == 'input arrived Bob position Camp.Exit'): # exit Camp
 		action('Exit(Bob, Camp.Exit, true)')
 		action('Enter(Bob, Bridge.SouthEnd, true)')
-	elif(i == 'input arrived Bob position Bridge.NorthEnd'): # enter Camp
+	elif(i == 'input arrived Bob position Bridge.NorthEnd'): # enter Ruins
 		action('Exit(Bob, Bridge.NorthEnd, true)')
 		action('Enter(Bob, Ruins.Exit, true)')
-	elif(i == 'input arrived Bob position Ruins.Exit'): # exit Camp
+	elif(i == 'input arrived Bob position Ruins.Exit'): # exit Ruins
 		action('Exit(Bob, Ruins.Exit, true)')
 		action('Enter(Bob, Bridge.NorthEnd, true)')
+	elif(i == 'input arrived Bob position City.SouthEnd'): # enter ForestPath
+		action('Exit(Bob, City.SouthEnd, true)')
+		action('Enter(Bob, ForestPath.EastEnd, true)')
+	elif(i == 'input arrived Bob position ForestPath.EastEnd'): # exit ForestPath
+		action('Exit(Bob, ForestPath.EastEnd, true)')
+		action('Enter(Bob, City.SouthEnd, true)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
