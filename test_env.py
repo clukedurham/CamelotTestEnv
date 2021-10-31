@@ -48,8 +48,13 @@ while(True):
 		action('SetCameraFocus(Bob)')
 		action('HideMenu()')
 		action('EnableInput()')
+	elif(i == 'input Key Inventory'):
+		action('ShowList(Bob)')
+	elif(i == 'input Close List'):
+		action('HideList()')
 	elif(i == 'input Pick_Up Sword'):
 		action('Draw(Bob, Sword)')
+		action('AddToList(Sword,"This is a sword!")')
 		# TODO add sword to inventory
 	elif(i == 'input Open_Door BobsHouse.Door'): # enter bob's house
 		action('Exit(Bob, BobsHouse.Door, true)')
