@@ -17,7 +17,7 @@ action('CreateItem(Sword, Sword)')
 action('SetPosition(Sword, BobsHouse.Table)')
 action('EnableIcon("Pick_Up", draw, Sword, "Pick up Sword", true)')
 action('SetClothing(Bob, Peasant)')
-action('SetPosition(Bob, BobsHouse.Door)')
+# action('SetPosition(Bob, BobsHouse.Door)')
 action('EnableIcon("Open_Door", exit, BobsHouse.Door, "Go to City", true)')
 action('ShowMenu()')
 
@@ -47,13 +47,30 @@ action('CreatePlace(Ruins, Ruins)')
 action('CreatePlace(ForestPath, ForestPath)')
 # Create Farm
 action('CreatePlace(Farm, Farm)')
-# Create Port1
-action('CreatePlace(Port1, Port)')
+# Create CityPort
+action('CreatePlace(CityPort, Port)')
+action('EnableIcon("Open_Door", exit, CityPort.BigShip, "Go to Castle Port", true)')
 # Create SpookyPath
 action('CreatePlace(SpookyPath, SpookyPath)')
-# Create Port2
-action('CreatePlace(Port2, Port)')
+# Create CastlePort
+action('CreatePlace(CastlePort, Port)')
+action('EnableIcon("Open_Door", exit, CastlePort.BigShip, "Go to City Port", true)')
+# Create Crossroads
+action('CreatePlace(Crossroads, CastleCrossroads)')
+action('EnableIcon("Open_Door", exit, Crossroads.Gate, "Go to Hallway", true)')
+# Create Hallway
+action('CreatePlace(Hallway, Hallway)')
+action('EnableIcon("Open_Door", exit, Hallway.Door, "Go to Crossroads", true)')
+action('EnableIcon("Open_Door", exit, Hallway.BackDoor, "Go to Great Hall", true)')
+# Create GreatHall
+action('CreatePlace(GreatHall, GreatHall)')
+action('EnableIcon("Open_Door", exit, GreatHall.Gate, "Go to Hallway", true)')
+# Create Library
+action('CreatePlace(Library, Library)')
+action('EnableIcon("Open_Door", exit, Library.Door, "Go to Hallway", true)')
 
+# Place Bob
+action('SetPosition(Bob, Crossroads.WestEnd)')
 
 # Respond to input.
 while(True):
@@ -130,12 +147,44 @@ while(True):
 	elif(i == 'input arrived Bob position Farm.Exit'): # exit Farm
 		action('Exit(Bob, ForestPath.Exit, true)')
 		action('Enter(Bob, ForestPath.WestEnd, true)')
-	elif(i == 'input arrived Bob position City.WestEnd'): # enter Port
+	elif(i == 'input arrived Bob position City.WestEnd'): # enter CityPort
 		action('Exit(Bob, City.WestEnd, true)')
-		action('Enter(Bob, Port.Exit, true)')
-	elif(i == 'input arrived Bob position Port.Exit'): # exit Port
-		action('Exit(Bob, Port.Exit, true)')
+		action('Enter(Bob, CityPort.Exit, true)')
+	elif(i == 'input arrived Bob position CityPort.Exit'): # exit CityPort
+		action('Exit(Bob, CityPort.Exit, true)')
 		action('Enter(Bob, City.WestEnd, true)')
+	elif(i == 'input Open_Door CityPort.BigShip'): # enter CastlePort
+		action('FadeOut()')
+		action('SetPosition(Bob, CastlePort.BigShip)')
+		action('FadeIn()')
+	elif(i == 'input Open_Door CastlePort.BigShip'): # exit CastlePort
+		action('FadeOut()')
+		action('SetPosition(Bob, CityPort.BigShip)')
+		action('FadeIn()')
+	elif(i == 'input arrived Bob position CastlePort.Exit'): # enter Crossroads
+		action('Exit(Bob, CastlePort.Exit, true)')
+		action('Enter(Bob, Crossroads.WestEnd, true)')
+	elif(i == 'input arrived Bob position Crossroads.WestEnd'): # exit Crossroads
+		action('Exit(Bob, Crossroads.WestEnd, true)')
+		action('Enter(Bob, CastlePort.Exit, true)')
+	elif(i == 'input Open_Door Crossroads.Gate'): # enter Hallway
+		action('Exit(Bob, Crossroads.Gate, true)')
+		action('Enter(Bob, Hallway.Door, true)')
+	elif(i == 'input Open_Door Hallway.Door'): # exit Hallway
+		action('Exit(Bob, Hallway.Door, true)')
+		action('Enter(Bob, Crossroads.Gate, true)')
+	elif(i == 'input Open_Door Hallway.BackDoor'): # enter GreatHall
+		action('Exit(Bob, Hallway.BackDoor, true)')
+		action('Enter(Bob, GreatHall.Gate, true)')
+	elif(i == 'input Open_Door GreatHall.Gate'): # exit GreatHall
+		action('Exit(Bob, GreatHall.Gate, true)')
+		action('Enter(Bob, Hallway.BackDoor, true)')
+	elif(i == 'input arrived Bob position Hallway.Stairs'): # enter Library
+		action('Exit(Bob, Hallway.Stairs, true)')
+		action('Enter(Bob, Library.Door, true)')
+	elif(i == 'input Open_Door Library.Door'): # exit Library
+		action('Exit(Bob, Library.Door, true)')
+		action('Enter(Bob, Hallway.Stairs, true)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
