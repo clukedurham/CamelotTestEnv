@@ -36,6 +36,7 @@ action('EnableIcon("Open_Door", exit, Tavern.Door, "Go to City", true)')
 action('EnableIcon("Open_Door", exit, City.BlueHouseDoor, "Go to Alchemy Shop", true)')
 action('CreatePlace(AlchemyShop, AlchemyShop)')
 action('EnableIcon("Open_Door", exit, AlchemyShop.Door, "Go to City", true)')
+
 # Create Bridge
 action('CreatePlace(Bridge, Bridge)')
 # Create Camp
@@ -44,6 +45,15 @@ action('CreatePlace(Camp, Camp)')
 action('CreatePlace(Ruins, Ruins)')
 # Create Forest Path
 action('CreatePlace(ForestPath, ForestPath)')
+# Create Farm
+action('CreatePlace(Farm, Farm)')
+# Create Port1
+action('CreatePlace(Port1, Port)')
+# Create SpookyPath
+action('CreatePlace(SpookyPath, SpookyPath)')
+# Create Port2
+action('CreatePlace(Port2, Port)')
+
 
 # Respond to input.
 while(True):
@@ -96,18 +106,36 @@ while(True):
 	elif(i == 'input arrived Bob position Camp.Exit'): # exit Camp
 		action('Exit(Bob, Camp.Exit, true)')
 		action('Enter(Bob, Bridge.SouthEnd, true)')
-	elif(i == 'input arrived Bob position Bridge.NorthEnd'): # enter Ruins
+	elif(i == 'input arrived Bob position Bridge.NorthEnd'): # enter Spooky Path
 		action('Exit(Bob, Bridge.NorthEnd, true)')
+		action('Enter(Bob, SpookyPath.EastEnd, true)')
+	elif(i == 'input arrived Bob position SpookyPath.EastEnd'): # exit Spooky Path
+		action('Exit(Bob, SpookyPath.EastEnd, true)')
+		action('Enter(Bob, Bridge.NorthEnd, true)')
+	elif(i == 'input arrived Bob position SpookyPath.WestEnd'): # enter Ruins
+		action('Exit(Bob, SpookyPath.WestEnd, true)')
 		action('Enter(Bob, Ruins.Exit, true)')
 	elif(i == 'input arrived Bob position Ruins.Exit'): # exit Ruins
 		action('Exit(Bob, Ruins.Exit, true)')
-		action('Enter(Bob, Bridge.NorthEnd, true)')
-	elif(i == 'input arrived Bob position City.SouthEnd'): # enter ForestPath
-		action('Exit(Bob, City.SouthEnd, true)')
+		action('Enter(Bob, SpookyPath.WestEnd, true)')
+	elif(i == 'input arrived Bob position City.NorthEnd'): # enter ForestPath
+		action('Exit(Bob, City.NorthEnd, true)')
 		action('Enter(Bob, ForestPath.EastEnd, true)')
 	elif(i == 'input arrived Bob position ForestPath.EastEnd'): # exit ForestPath
 		action('Exit(Bob, ForestPath.EastEnd, true)')
-		action('Enter(Bob, City.SouthEnd, true)')
+		action('Enter(Bob, City.NorthEnd, true)')
+	elif(i == 'input arrived Bob position ForestPath.WestEnd'): # enter Farm
+		action('Exit(Bob, ForestPath.WestEnd, true)')
+		action('Enter(Bob, Farm.Exit, true)')
+	elif(i == 'input arrived Bob position Farm.Exit'): # exit Farm
+		action('Exit(Bob, ForestPath.Exit, true)')
+		action('Enter(Bob, ForestPath.WestEnd, true)')
+	elif(i == 'input arrived Bob position City.WestEnd'): # enter Port
+		action('Exit(Bob, City.WestEnd, true)')
+		action('Enter(Bob, Port.Exit, true)')
+	elif(i == 'input arrived Bob position Port.Exit'): # exit Port
+		action('Exit(Bob, Port.Exit, true)')
+		action('Enter(Bob, City.WestEnd, true)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
