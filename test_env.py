@@ -10,16 +10,23 @@ def action(command):
 		elif(i.startswith('error')):
 			return False
 
+items = ['Apple','Bag','BlueBook','BlueCloth','BlueKey','BluePotion','Bottle','Bread','ChickenLeg','Coin','Compass','Cup','EvilBook','GoldCup','GreenBook','GreenKey','GreenPotion','Hammer','Helmet','InkandQuill','JewelKey','LitTorch','Lock','MagnifyingGlass','OpenScroll','PurpleBook','PurpleCloth','PurpleKey','PurplePotion','Rags','RedBook','RedCloth','RedKey','RedPotion','Scroll','Skull','SpellBook','Sword','Torch']
+
 # Create Bob's House
 action('CreatePlace(BobsHouse, Cottage)')
 action('CreateCharacter(Bob, B)')
-action('CreateItem(Sword, Sword)')
-action('SetPosition(Sword, BobsHouse.Table)')
-action('EnableIcon("Pick_Up", draw, Sword, "Pick up Sword", true)')
+# action('CreateItem(Sword, Sword)')
+# action('SetPosition(Sword, BobsHouse.Table)')
+# action('EnableIcon("Pick_Up", draw, Sword, "Pick up Sword", true)')
 action('SetClothing(Bob, Peasant)')
-# action('SetPosition(Bob, BobsHouse.Door)')
 action('EnableIcon("Open_Door", exit, BobsHouse.Door, "Go to City", true)')
-action('ShowMenu()')
+action('EnableIcon("sleep_on", bed, BobsHouse.Bed, "Lay on Bed", true)')
+action('EnableIcon("sit_on", chair, BobsHouse.Chair, "Sit on Chair", true)')
+action('EnableIcon("open_chest", chest, BobsHouse.Chest, "Open Chest", true)')
+
+for i in items:
+	action(f'CreateItem({i},{i})')
+	action(f'AddToList({i})')
 
 # Create City
 action('CreatePlace(City, City)')
@@ -61,7 +68,6 @@ action('EnableIcon("Open_Door", exit, Crossroads.Gate, "Go to Hallway", true)')
 #Create Courtyard
 action('CreatePlace(Courtyard, Courtyard)')
 action('EnableIcon("Open_Door", exit, Courtyard.Gate, "Go to Hallway", true)')
-
 # Create Hallway
 action('CreatePlace(Hallway, Hallway)')
 action('EnableIcon("Open_Door", exit, Hallway.Door, "Go to Crossroads", true)')
@@ -90,8 +96,8 @@ action('CreatePlace(Storage, Storage)')
 action('EnableIcon("Open_Door", exit, Storage.Door, "Go to Dining Room", true)')
 
 # Place Bob
-action('SetPosition(Bob, Crossroads.WestEnd)')
-
+action('SetPosition(Bob, BobsHouse.Door)')
+action('ShowMenu()')
 # Respond to input.
 while(True):
 	i = input()
@@ -106,7 +112,6 @@ while(True):
 	elif(i == 'input Pick_Up Sword'):
 		action('Draw(Bob, Sword)')
 		action('AddToList(Sword,"This is a sword!")')
-		# TODO add sword to inventory
 	elif(i == 'input Open_Door BobsHouse.Door'): # enter bob's house
 		action('Exit(Bob, BobsHouse.Door, true)')
 		action('Enter(Bob, City.GreenHouseDoor, true)')
@@ -194,11 +199,13 @@ while(True):
 		action('Exit(Bob, Courtyard.Exit, true)')
 		action('Enter(Bob, Crossroads.Gate, true)')
 	elif(i == 'input Open_Door Courtyard.Gate'): # enter Hallway
-		action('Exit(Bob, Courtyard.Gate, true)')
-		action('Enter(Bob, Hallway.Door, true)')
+		action('FadeOut()')
+		action('SetPosition(Bob, Hallway.Door)')
+		action('FadeIn()')
 	elif(i == 'input Open_Door Hallway.Door'): # exit Hallway
-		action('Exit(Bob, Hallway.Door, true)')
-		action('Enter(Bob, Courtyard.Gate, true)')
+		action('FadeOut()')
+		action('SetPosition(Bob, Courtyard.Gate)')
+		action('FadeIn()')
 	elif(i == 'input Open_Door Hallway.BackDoor'): # enter GreatHall
 		action('Exit(Bob, Hallway.BackDoor, true)')
 		action('Enter(Bob, GreatHall.Gate, true)')
@@ -235,6 +242,12 @@ while(True):
 	elif(i == 'input Open_Door Storage.Door'): # exit Dining Room
 		action('Exit(Bob, Storage.Door, true)')
 		action('Enter(Bob, DiningRoom.BackDoor, true)')
+	elif(i == 'input sleep_on BobsHouse.Bed'):
+		action('Sleep(Bob, BobsHouse.Bed)')
+	elif(i == 'input sit_on BobsHouse.Chair'):
+		action('Sit(Bob, BobsHouse.Chair)')
+	elif(i == 'input open_chest BobsHouse.Chest'):
+		action('ShowList(BobsHouse.Chest)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
