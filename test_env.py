@@ -58,6 +58,10 @@ action('EnableIcon("Open_Door", exit, CastlePort.BigShip, "Go to City Port", tru
 # Create Crossroads
 action('CreatePlace(Crossroads, CastleCrossroads)')
 action('EnableIcon("Open_Door", exit, Crossroads.Gate, "Go to Hallway", true)')
+#Create Courtyard
+action('CreatePlace(Courtyard, Courtyard)')
+action('EnableIcon("Open_Door", exit, Courtyard.Gate, "Go to Hallway", true)')
+
 # Create Hallway
 action('CreatePlace(Hallway, Hallway)')
 action('EnableIcon("Open_Door", exit, Hallway.Door, "Go to Crossroads", true)')
@@ -65,9 +69,25 @@ action('EnableIcon("Open_Door", exit, Hallway.BackDoor, "Go to Great Hall", true
 # Create GreatHall
 action('CreatePlace(GreatHall, GreatHall)')
 action('EnableIcon("Open_Door", exit, GreatHall.Gate, "Go to Hallway", true)')
+action('EnableIcon("Open_Door", exit, GreatHall.BasementDoor, "Go to Dungeon", true)')
+action('EnableIcon("Open_Door", exit, GreatHall.LeftDoor, "Go to Bedroom", true)')
+action('EnableIcon("Open_Door", exit, GreatHall.RightDoor, "Go to Dining Room", true)')
 # Create Library
 action('CreatePlace(Library, Library)')
 action('EnableIcon("Open_Door", exit, Library.Door, "Go to Hallway", true)')
+# Create Dungeon
+action('CreatePlace(Dungeon, Dungeon)')
+action('EnableIcon("Open_Door", exit, Dungeon.Door, "Go to Great Hall", true)')
+# Create Bedroom
+action('CreatePlace(Bedroom, CastleBedroom)')
+action('EnableIcon("Open_Door", exit, Bedroom.Door, "Go to Great Hall", true)')
+# Create Dining Room
+action('CreatePlace(DiningRoom, DiningRoom)')
+action('EnableIcon("Open_Door", exit, DiningRoom.Door, "Go to Great Hall", true)')
+action('EnableIcon("Open_Door", exit, DiningRoom.BackDoor, "Go to Storage", true)')
+# Create Storage
+action('CreatePlace(Storage, Storage)')
+action('EnableIcon("Open_Door", exit, Storage.Door, "Go to Dining Room", true)')
 
 # Place Bob
 action('SetPosition(Bob, Crossroads.WestEnd)')
@@ -167,12 +187,18 @@ while(True):
 	elif(i == 'input arrived Bob position Crossroads.WestEnd'): # exit Crossroads
 		action('Exit(Bob, Crossroads.WestEnd, true)')
 		action('Enter(Bob, CastlePort.Exit, true)')
-	elif(i == 'input Open_Door Crossroads.Gate'): # enter Hallway
+	elif(i == 'input Open_Door Crossroads.Gate'): # enter Courtyard
 		action('Exit(Bob, Crossroads.Gate, true)')
+		action('Enter(Bob, Courtyard.Exit, true)')
+	elif(i == 'input arrived Bob position Courtyard.Exit'): # exit Courtyard
+		action('Exit(Bob, Courtyard.Exit, true)')
+		action('Enter(Bob, Crossroads.Gate, true)')
+	elif(i == 'input Open_Door Courtyard.Gate'): # enter Hallway
+		action('Exit(Bob, Courtyard.Gate, true)')
 		action('Enter(Bob, Hallway.Door, true)')
 	elif(i == 'input Open_Door Hallway.Door'): # exit Hallway
 		action('Exit(Bob, Hallway.Door, true)')
-		action('Enter(Bob, Crossroads.Gate, true)')
+		action('Enter(Bob, Courtyard.Gate, true)')
 	elif(i == 'input Open_Door Hallway.BackDoor'): # enter GreatHall
 		action('Exit(Bob, Hallway.BackDoor, true)')
 		action('Enter(Bob, GreatHall.Gate, true)')
@@ -185,6 +211,30 @@ while(True):
 	elif(i == 'input Open_Door Library.Door'): # exit Library
 		action('Exit(Bob, Library.Door, true)')
 		action('Enter(Bob, Hallway.Stairs, true)')
+	elif(i == 'input Open_Door GreatHall.BasementDoor'): # enter Dungeon
+		action('Exit(Bob, GreatHall.BasementDoor, true)')
+		action('Enter(Bob, Dungeon.Door, true)')
+	elif(i == 'input Open_Door Dungeon.Door'): # exit Dungeon
+		action('Exit(Bob, Dungeon.Door, true)')
+		action('Enter(Bob, GreatHall.BasementDoor, true)')
+	elif(i == 'input Open_Door GreatHall.LeftDoor'): # enter Bedroom
+		action('Exit(Bob, GreatHall.LeftDoor, true)')
+		action('Enter(Bob, Bedroom.Door, true)')
+	elif(i == 'input Open_Door Bedroom.Door'): # exit Bedroom
+		action('Exit(Bob, Bedroom.Door, true)')
+		action('Enter(Bob, GreatHall.LeftDoor, true)')
+	elif(i == 'input Open_Door GreatHall.RightDoor'): # enter Dining Room
+		action('Exit(Bob, GreatHall.RightDoor, true)')
+		action('Enter(Bob, DiningRoom.Door, true)')
+	elif(i == 'input Open_Door DiningRoom.Door'): # exit Dining Room
+		action('Exit(Bob, DiningRoom.Door, true)')
+		action('Enter(Bob, GreatHall.RightDoor, true)')
+	elif(i == 'input Open_Door DiningRoom.BackDoor'): # enter Dining Room
+		action('Exit(Bob, DiningRoom.BackDoor, true)')
+		action('Enter(Bob, Storage.Door, true)')
+	elif(i == 'input Open_Door Storage.Door'): # exit Dining Room
+		action('Exit(Bob, Storage.Door, true)')
+		action('Enter(Bob, DiningRoom.BackDoor, true)')
 	elif(i == 'input Key Pause'):
 		action('ShowMenu()')
 	elif(i == 'input Selected Quit'):
