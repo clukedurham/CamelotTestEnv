@@ -40,7 +40,6 @@ def initialize():
     f.write(connect('City','NorthEnd','ForestPath','EastEnd'))
     f.write(connect('ForestPath','WestEnd','Farm','Exit'))
     f.write(connect('City','WestEnd','Port','Exit'))
-    f.write(connect('Port','EastEnd','City','WestEnd'))
     f.write('\n\telif(i == \'input Open_Door Port.BigShip\'):\n\t\taction(\'FadeOut()\')\n\t\taction(\'SetPosition(Bob, CastleCrossroads.WestEnd)\')\n\t\taction(\'FadeIn()\')\n\telif(i == \'input arrived Bob position CastleCrossroads.WestEnd\'):\n\t\taction(\'FadeOut()\')\n\t\taction(\'SetPosition(Bob, Port.BigShip)\')\n\t\taction(\'FadeIn()\')')
     f.write(connect('CastleCrossroads','Gate','Courtyard','Exit'))
     f.write(connect('Courtyard','Gate','Hallway','Door'))
