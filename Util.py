@@ -16,7 +16,7 @@ def initialize():
     f.write('\nfor p in places:\n\taction(f\'CreatePlace({p},{p})\')\n')
 
     # create items and add to inventory
-    f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n\taction(f\'EnableIcon("un_pocket", hand, {i})\')\n\taction(f\'EnableIcon("pocket", hand, {i})\')\n')
+    f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n\taction(f\'EnableIcon("un_pocket", draw, {i})\')\n\taction(f\'EnableIcon("pocket", return, {i})\')\n\taction(f\'EnableIcon("pickup", hand, {i})\')\n\taction(f\'EnableIcon("putdown", cancel, {i})\')\n')
 
     # create icons
     f.write('\naction(\'EnableIcon("Open_Door", exit, Port.BigShip, "Go to CastleCrossroads", true)\')')
@@ -40,7 +40,7 @@ def initialize():
     f.write(connect('City','NorthEnd','ForestPath','EastEnd'))
     f.write(connect('ForestPath','WestEnd','Farm','Exit'))
     f.write(connect('City','WestEnd','Port','Exit'))
-    f.write(connect('Port','EastEnd','Bridge','WestEnd'))
+    f.write(connect('Port','EastEnd','City','WestEnd'))
     f.write('\n\telif(i == \'input Open_Door Port.BigShip\'):\n\t\taction(\'FadeOut()\')\n\t\taction(\'SetPosition(Bob, CastleCrossroads.WestEnd)\')\n\t\taction(\'FadeIn()\')\n\telif(i == \'input arrived Bob position CastleCrossroads.WestEnd\'):\n\t\taction(\'FadeOut()\')\n\t\taction(\'SetPosition(Bob, Port.BigShip)\')\n\t\taction(\'FadeIn()\')')
     f.write(connect('CastleCrossroads','Gate','Courtyard','Exit'))
     f.write(connect('Courtyard','Gate','Hallway','Door'))
@@ -71,7 +71,7 @@ def connect(place1, door1, place2, door2):
     return output
 
 def itemInput(item):
-    output = f'\n\telif(i == \'input un_pocket {item}\'):\n\t\taction(\'Unpocket(Bob, {item})\')\n\telif(i == \'input pocket {item}\'):\n\t\taction(\'Pocket(Bob, {item})\')'
+    output = f'\n\telif(i == \'input un_pocket {item}\'):\n\t\taction(\'Unpocket(Bob, {item})\')\n\telif(i == \'input pocket {item}\'):\n\t\taction(\'Pocket(Bob, {item})\')\n\telif(i == \'input pickup {item}\'):\n\t\taction(\'Pickup(Bob, {item})\')\n\telif(i == \'input putdown {item}\'):\n\t\taction(\'PutDown(Bob, {item})\')'
     return output
 
 
