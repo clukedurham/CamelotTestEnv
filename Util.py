@@ -16,7 +16,7 @@ def initialize():
     f.write('\nfor p in places:\n\taction(f\'CreatePlace({p},{p})\')\n')
 
     # create items and add to inventory
-    f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n')
+    f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n\taction(f\'EnableIcon("un_pocket", hand, {i})\')')
 
     # create icons
     f.write('\naction(\'EnableIcon("Open_Door", exit, Port.BigShip, "Go to CastleCrossroads", true)\')')
@@ -52,6 +52,7 @@ def initialize():
     f.write(connect('DiningRoom','BackDoor','Storage','Door'))
 
     # Select Item from Inv.
+    items = ['Apple','Bag','BlueBook','BlueCloth','BlueKey','BluePotion','Bottle','Bread','ChickenLeg','Coin','Compass','Cup','EvilBook','GoldCup','GreenBook','GreenKey','GreenPotion','Hammer','Helmet','InkandQuill','JewelKey','LitTorch','Lock','MagnifyingGlass','OpenScroll','PurpleBook','PurpleCloth','PurpleKey','PurplePotion','Rags','RedBook','RedCloth','RedKey','RedPotion','Scroll','Skull','SpellBook','Sword','Torch']
     f.write(pullOutItem('Sword'))
 
     # close file
@@ -69,7 +70,7 @@ def connect(place1, door1, place2, door2):
     return output
 
 def pullOutItem(item):
-    output = f'\n\telif(i == \'input {item} List\'):\n\t\taction(\'Unpocket(Bob, {item})\')'
+    output = f'\n\telif(i == \'input un_pocket {item}\'):\n\t\taction(\'Unpocket(Bob, {item})\')'
 
     return output
 

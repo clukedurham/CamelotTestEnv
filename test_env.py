@@ -22,7 +22,7 @@ for p in places:
 for i in items:
 	action(f'CreateItem({i},{i})')
 	action(f'AddToList({i})')
-
+	action(f'EnableIcon("un_pocket", hand, {i})')
 action('EnableIcon("Open_Door", exit, Port.BigShip, "Go to CastleCrossroads", true)')
 action('SetPosition(Bob, Cottage.Door)')
 action('ShowMenu()')
@@ -171,3 +171,5 @@ while(True):
 	elif(i == 'input arrived Bob position Storage.Door'):
 		action('Exit(Bob, Storage.Door, true)')
 		action('Enter(Bob, DiningRoom.BackDoor, true)')
+	elif(i == 'input un_pocket Sword'):
+		action('Unpocket(Bob, Sword)')
