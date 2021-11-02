@@ -15,7 +15,7 @@ def initialize():
     # create places
     f.write('\nfor p in places:\n\taction(f\'CreatePlace({p},{p})\')\n')
 
-    # create items and add to inventory
+    # create items, add to inventory, and create icons for interaction
     f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n\taction(f\'EnableIcon("un_pocket", draw, {i})\')\n\taction(f\'EnableIcon("pocket", return, {i})\')\n\taction(f\'EnableIcon("pickup", hand, {i})\')\n\taction(f\'EnableIcon("putdown", cancel, {i})\')\n')
 
     # create icons
@@ -58,7 +58,7 @@ def initialize():
     # close file
     f.close()
 
-# connect 2 places at the given doors
+# connect 2 places at the given doors within the input handler
 def connect(place1, door1, place2, door2):
 
     input1 = f'input arrived Bob position {place1}.{door1}'
@@ -69,6 +69,7 @@ def connect(place1, door1, place2, door2):
     
     return output
 
+# create input handling for item interactions
 def itemInput(item):
     output = f'\n\telif(i == \'input un_pocket {item}\'):\n\t\taction(\'Unpocket(Bob, {item})\')\n\telif(i == \'input pocket {item}\'):\n\t\taction(\'Pocket(Bob, {item})\')\n\telif(i == \'input pickup {item}\'):\n\t\taction(\'Pickup(Bob, {item})\')\n\telif(i == \'input putdown {item}\'):\n\t\taction(\'PutDown(Bob, {item})\')'
     return output

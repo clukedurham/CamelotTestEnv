@@ -113,12 +113,6 @@ while(True):
 	elif(i == 'input arrived Bob position Port.Exit'):
 		action('Exit(Bob, Port.Exit, true)')
 		action('Enter(Bob, City.WestEnd, true)')
-	elif(i == 'input arrived Bob position Port.EastEnd'):
-		action('Exit(Bob, Port.EastEnd, true)')
-		action('Enter(Bob, City.WestEnd, true)')
-	elif(i == 'input arrived Bob position City.WestEnd'):
-		action('Exit(Bob, City.WestEnd, true)')
-		action('Enter(Bob, Port.EastEnd, true)')
 	elif(i == 'input Open_Door Port.BigShip'):
 		action('FadeOut()')
 		action('SetPosition(Bob, CastleCrossroads.WestEnd)')
