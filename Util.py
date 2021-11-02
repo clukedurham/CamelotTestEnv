@@ -14,6 +14,7 @@ def initialize():
 
     # create places
     f.write('\nfor p in places:\n\taction(f\'CreatePlace({p},{p})\')\n')
+
     # create items and add to inventory
     f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n')
 
@@ -50,6 +51,9 @@ def initialize():
     f.write(connect('GreatHall','RightDoor','DiningRoom','Door'))
     f.write(connect('DiningRoom','BackDoor','Storage','Door'))
 
+    # Select Item from Inv.
+    f.write(pullOutItem('Sword'))
+
     # close file
     f.close()
 
@@ -62,6 +66,11 @@ def connect(place1, door1, place2, door2):
     # create elif branch
     output = f'\n\telif(i == \'{input1}\'):\n\t\taction(\'Exit(Bob, {place1}.{door1}, true)\')\n\t\taction(\'Enter(Bob, {place2}.{door2}, true)\')\n\telif(i == \'{input2}\'):\n\t\taction(\'Exit(Bob, {place2}.{door2}, true)\')\n\t\taction(\'Enter(Bob, {place1}.{door1}, true)\')'
     
+    return output
+
+def pullOutItem(item):
+    output = f'\n\telif(i == \'input {item} List\'):\n\t\taction(\'Unpocket(Bob, {item})\')'
+
     return output
 
 initialize()
