@@ -4,9 +4,9 @@ def action(command):
 		i = input()
 		if(i == 'succeeded ' + command):
 			return True
-		elif(i == 'failed ' + command):
+		elif(i == 'failed ' + command): # Error
 			return False
-		elif(i.startswith('error')):
+		elif(i.startswith('error')): # Error
 			return False
 
 items = ['Apple','Bag','BlueBook','BlueCloth','BlueKey','BluePotion','Bottle','Bread','ChickenLeg','Coin','Compass','Cup','EvilBook','GoldCup','GreenBook','GreenKey','GreenPotion','Hammer','Helmet','InkandQuill','JewelKey','LitTorch','Lock','MagnifyingGlass','OpenScroll','PurpleBook','PurpleCloth','PurpleKey','PurplePotion','Rags','RedBook','RedCloth','RedKey','RedPotion','Scroll','Skull','SpellBook','Sword','Torch']
