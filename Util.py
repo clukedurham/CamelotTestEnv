@@ -20,7 +20,7 @@ def initialize():
             f.write('\nfor p in places:\n\taction(f\'CreatePlace({p},{p})\')\n')
 
             # create items, add to inventory, and create icons for interaction
-            f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n\taction(f\'EnableIcon("un_pocket", draw, {i})\')\n\taction(f\'EnableIcon("pocket", return, {i})\')\n\taction(f\'EnableIcon("pickup", hand, {i})\')\n\taction(f\'EnableIcon("putdown", cancel, {i})\')\n')
+            f.write('\nfor i in items:\n\taction(f\'CreateItem({i},{i})\')\n\taction(f\'AddToList({i})\')\n\taction(f\'EnableIcon("un_pocket", draw, {i}, "Unpocket {i}")\')\n\taction(f\'EnableIcon("pocket", return, {i}, "Pocket {i}")\')\n\taction(f\'EnableIcon("pickup", hand, {i}, "Pickup {i}")\')\n\taction(f\'EnableIcon("putdown", cancel, {i},"Putdown {i}")\')\n')
 
             # create icons
             f.write('\naction(\'EnableIcon("Open_Door", exit, Port.BigShip, "Go to CastleCrossroads", true)\')')
@@ -77,6 +77,7 @@ def connect(place1, door1, place2, door2):
         return output   
     else:
         print("One of the places given in connect() is not valid.")
+        return "Invalid Input"
     
 
 # create input handling for item interactions
@@ -86,6 +87,7 @@ def itemInput(item):
         return output
     else: 
         print("Item given to itemInput() is not valid.")
+        return "Invalid Input"
 
 
 initialize()
